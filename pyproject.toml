@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=65.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ultimate-onnx-converter"
+version = "0.1.0"
+description = "Terminal User Interface for ONNX Model Conversion, Quantization, Testing, Profiling, and Optimization"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Ultimate ONNX Team", email = "info@onnxconverter.dev"}
+]
+keywords = ["onnx", "tui", "quantization", "model-optimization", "terminal"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "onnx>=1.12.0",
+    "onnxruntime>=1.14.0",
+    "onnxruntime-tools>=1.7.0",
+    "rich>=13.0.0",
+    "typer>=0.9.0",
+    "numpy>=1.21.0",
+    "opencv-python>=4.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "isort>=5.0",
+    "mypy>=1.0",
+    "flake8>=5.0",
+]
+viz = [
+    "matplotlib>=3.5.0",
+    "plotly>=5.0.0",
+]
+gpu = [
+    "onnxruntime-gpu>=1.14.0",
+    "tensorrt>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/mrnhtyzgld/ultimate-onnx-converter"
+Repository = "https://github.com/mrnhtyzgld/ultimate-onnx-converter.git"
+Documentation = "https://github.com/mrnhtyzgld/ultimate-onnx-converter/wiki"
+Issues = "https://github.com/mrnhtyzgld/ultimate-onnx-converter/issues"
+
+[project.scripts]
+onnx-converter = "onnx_converter.main:app"
+
+[tool.setuptools]
+packages = ["onnx_converter", "onnx_converter.core", "onnx_converter.modules", "onnx_converter.utils"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+onnx_converter = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "--cov=onnx_converter --cov-report=term-missing"
